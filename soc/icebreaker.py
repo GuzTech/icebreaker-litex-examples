@@ -199,9 +199,9 @@ class BaseSoC(SoCCore):
 
         self.submodules.vga = vga = VGA(
             red = Cat(platform.request("red", 0),
-                     platform.request("red", 1),
-                     platform.request("red", 2),
-                     platform.request("red", 3)),
+                      platform.request("red", 1),
+                      platform.request("red", 2),
+                      platform.request("red", 3)),
             green = Cat(platform.request("green", 0),
                         platform.request("green", 1),
                         platform.request("green", 2),
