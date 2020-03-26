@@ -2,7 +2,7 @@
 
 <device schemaVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd" >
     <vendor>litex</vendor>
-    <name>LEDS</name>
+    <name>VGA</name>
 
     <addressUnitBits>8</addressUnitBits>
     <width>32</width>
@@ -82,7 +82,7 @@ to the Wishbone/CSR bus are working correctly. The initial reset value of
                 <register>
                     <name>TUNING_WORD</name>
                     <addressOffset>0x0000</addressOffset>
-                    <resetValue>0x1678303</resetValue>
+                    <resetValue>0x1797cc3</resetValue>
                     <size>32</size>
                     <access>read-write</access>
                     <fields>
@@ -437,30 +437,37 @@ to perform half-duplex operations, using this SPI core.]]></description>
             </addressBlock>
         </peripheral>
         <peripheral>
-            <name>LEDS</name>
+            <name>VGA</name>
             <baseAddress>0xE0003000</baseAddress>
-            <groupName>LEDS</groupName>
+            <groupName>VGA</groupName>
             <registers>
                 <register>
-                    <name>OUT</name>
+                    <name>CSR</name>
                     <addressOffset>0x0000</addressOffset>
                     <resetValue>0x00</resetValue>
                     <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
-                            <name>ledr</name>
-                            <msb>0</msb>
-                            <bitRange>[0:0]</bitRange>
+                            <name>red</name>
+                            <msb>3</msb>
+                            <bitRange>[3:0]</bitRange>
                             <lsb>0</lsb>
-                            <description><![CDATA[The Red LED on the main iCEBreaker board.]]></description>
+                            <description><![CDATA[The value of the red color channel]]></description>
                         </field>
                         <field>
-                            <name>ledg</name>
-                            <msb>1</msb>
-                            <bitRange>[1:1]</bitRange>
-                            <lsb>1</lsb>
-                            <description><![CDATA[The Green LED on the main iCEBreaker board.]]></description>
+                            <name>green</name>
+                            <msb>7</msb>
+                            <bitRange>[7:4]</bitRange>
+                            <lsb>4</lsb>
+                            <description><![CDATA[The value of the green color channel]]></description>
+                        </field>
+                        <field>
+                            <name>blue</name>
+                            <msb>11</msb>
+                            <bitRange>[11:8]</bitRange>
+                            <lsb>8</lsb>
+                            <description><![CDATA[The value of the blue color channel]]></description>
                         </field>
                         <field>
                             <name>hledr1</name>

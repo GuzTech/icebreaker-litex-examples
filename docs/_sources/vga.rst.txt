@@ -1,0 +1,48 @@
+VGA
+===
+
+VGA PMOD module.
+----------------
+
+This module uses the Digilent PmodVGA board, generates an 800x600 @ 60Hz VGA signal,
+and displays a single color which is determined by the CSR value.
+
+
+Register Listing for VGA
+------------------------
+
++--------------------------+-----------------------------+
+| Register                 | Address                     |
++==========================+=============================+
+| :ref:`VGA_CSR <VGA_CSR>` | :ref:`0xe0003000 <VGA_CSR>` |
++--------------------------+-----------------------------+
+
+VGA_CSR
+^^^^^^^
+
+`Address: 0xe0003000 + 0x0 = 0xe0003000`
+
+
+    .. wavedrom::
+        :caption: VGA_CSR
+
+        {
+            "reg": [
+                {"name": "red",  "bits": 4},
+                {"name": "green",  "bits": 4},
+                {"name": "blue",  "bits": 4},
+                {"bits": 20}
+            ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
+        }
+
+
++--------+-------+--------------------------------------+
+| Field  | Name  | Description                          |
++========+=======+======================================+
+| [3:0]  | RED   | The value of the red color channel   |
++--------+-------+--------------------------------------+
+| [7:4]  | GREEN | The value of the green color channel |
++--------+-------+--------------------------------------+
+| [11:8] | BLUE  | The value of the blue color channel  |
++--------+-------+--------------------------------------+
+

@@ -25,7 +25,7 @@ class Leds(Module, AutoCSR, AutoDoc):
         corresponding LED bit to 1 the LED will be off and if you set it to 0 the LED will be on.
         """)
 
-        # HDL Implementationj
+        # HDL Implementation
         self._out = CSRStorage(len(led_pin), fields=[
             CSRField(fld[0], description=fld[1]) for fld in led_name
         ])

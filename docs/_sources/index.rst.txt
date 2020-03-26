@@ -23,7 +23,7 @@ Register Groups
     uart
     timer0
     spiflash
-    leds
+    vga
 
 Indices and tables
 ==================

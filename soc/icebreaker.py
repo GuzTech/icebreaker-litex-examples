@@ -33,9 +33,37 @@ from litex.soc.integration.doc import AutoDoc
 from litex_boards.platforms.icebreaker import Platform, break_off_pmod
 
 from litex.soc.cores.uart import UARTWishboneBridge
-from rtl.leds import Leds
+from rtl.counter import Counter
+from rtl.pmod_vga import VGA
 
 import litex.soc.doc as lxsocdoc
+
+from litex.build.generic_platform import *
+
+# The attached LED/button section can be either used standalone or as a PMOD.
+# Attach to platform using:
+# platform.add_extension(vga_pmod)
+# pmod_blue0 = platform.request("blue", 0)
+vga_pmod = [
+    ("red", 0, Pins("PMOD1A:0"), IOStandard("LVCMOS33")),
+    ("red", 1, Pins("PMOD1A:1"), IOStandard("LVCMOS33")),
+    ("red", 2, Pins("PMOD1A:2"), IOStandard("LVCMOS33")),
+    ("red", 3, Pins("PMOD1A:3"), IOStandard("LVCMOS33")),
+
+    ("blue", 0, Pins("PMOD1A:4"), IOStandard("LVCMOS33")),
+    ("blue", 1, Pins("PMOD1A:5"), IOStandard("LVCMOS33")),
+    ("blue", 2, Pins("PMOD1A:6"), IOStandard("LVCMOS33")),
+    ("blue", 3, Pins("PMOD1A:7"), IOStandard("LVCMOS33")),
+
+    ("green", 0, Pins("PMOD1B:0"), IOStandard("LVCMOS33")),
+    ("green", 1, Pins("PMOD1B:1"), IOStandard("LVCMOS33")),
+    ("green", 2, Pins("PMOD1B:2"), IOStandard("LVCMOS33")),
+    ("green", 3, Pins("PMOD1B:3"), IOStandard("LVCMOS33")),
+
+    ("hsync", 0, Pins("PMOD1B:4"), IOStandard("LVCMOS33")),
+    ("vsync", 0, Pins("PMOD1B:5"), IOStandard("LVCMOS33")),
+]
+
 
 
 # CRG ----------------------------------------------------------------------------------------------
@@ -51,24 +79,28 @@ class _CRG(Module, AutoDoc):
     def __init__(self, platform, sys_clk_freq):
         self.clock_domains.cd_sys = ClockDomain()
         self.clock_domains.cd_por = ClockDomain()
+        self.clock_domains.cd_vga = ClockDomain()
 
         # # #
 
         # Clocks
         clk12 = platform.request("clk12")
-        if sys_clk_freq == 12e6:
-            self.comb += self.cd_sys.clk.eq(clk12)
-        else:
-            self.submodules.pll = pll = iCE40PLL(primitive="SB_PLL40_PAD")
-            pll.register_clkin(clk12, 12e6)
-            pll.create_clkout(self.cd_sys, sys_clk_freq)
+        self.submodules.pll = pll = iCE40PLL(primitive="SB_PLL40_PAD")
+        pll.register_clkin(clk12, 12e6)
+        pll.create_clkout(self.cd_vga, 40e6)
+
+        clk_counter = Signal()
+        self.sync.vga += clk_counter.eq(clk_counter - 1)
+        self.comb += self.cd_sys.clk.eq(clk_counter[0])
+
         platform.add_period_constraint(self.cd_sys.clk, 1e9 / sys_clk_freq)
+        platform.add_period_constraint(self.cd_vga.clk, 1e9 / 40e6)
 
         # Power On Reset
         self.reset = Signal()
         por_cycles = 4096
         por_counter = Signal(log2_int(por_cycles), reset=por_cycles - 1)
-        self.comb += self.cd_por.clk.eq(self.cd_sys.clk)
+        self.comb += self.cd_por.clk.eq(self.cd_vga.clk)
         platform.add_period_constraint(self.cd_por.clk, 1e9 / sys_clk_freq)
         self.sync.por += If(por_counter != 0, por_counter.eq(por_counter - 1))
         self.comb += self.cd_sys.rst.eq(por_counter != 0)
@@ -148,27 +180,39 @@ class BaseSoC(SoCCore):
             if hasattr(self, "cpu") and self.cpu.name == "vexriscv":
                 self.register_mem("vexriscv_debug", 0xf00f0000, self.cpu.debug_bus, 0x100)
 
-        platform.add_extension(break_off_pmod)
+        # platform.add_extension(break_off_pmod)
 
-        self.submodules.leds = Leds(Cat(
-            platform.request("user_ledr_n"),
-            platform.request("user_ledg_n"),
-            platform.request("user_ledr"),
-            platform.request("user_ledg", 0),
-            platform.request("user_ledg", 1),
-            platform.request("user_ledg", 2),
-            platform.request("user_ledg", 3)),
-            led_polarity=0x03,
-            led_name=[
-                ["ledr", "The Red LED on the main iCEBreaker board."],
-                ["ledg", "The Green LED on the main iCEBreaker board."],
-                ["hledr1", "The center Red LED #1 on the iCEBreaker head."],
-                ["hledg2", "Green LED #2 on the iCEBreaker head."],
-                ["hledg3", "Green LED #3 on the iCEBreaker head."],
-                ["hledg4", "Green LED #4 on the iCEBreaker head."],
-                ["hledg5", "Green LED #5 on the iCEBreaker head."]])
+        # self.submodules.counter = Counter(4,
+        #     Cat(
+        #     platform.request("user_ledr_n"),
+        #     platform.request("user_ledg_n"),
+        #     platform.request("user_ledr"),
+        #     platform.request("user_ledg", 0),
+        #     platform.request("user_ledg", 1),
+        #     platform.request("user_ledg", 2),
+        #     platform.request("user_ledg", 3)),
+        # )
+        # self.add_csr("counter")
 
-        self.add_csr("leds")
+        platform.add_extension(vga_pmod)
+
+        self.submodules.vga = VGA(
+            red = Cat(platform.request("red", 0),
+                     platform.request("red", 1),
+                     platform.request("red", 2),
+                     platform.request("red", 3)),
+            green = Cat(platform.request("green", 0),
+                        platform.request("green", 1),
+                        platform.request("green", 2),
+                        platform.request("green", 3)),
+            blue = Cat(platform.request("blue", 0),
+                       platform.request("blue", 1),
+                       platform.request("blue", 2),
+                       platform.request("blue", 3)),
+            hsync = platform.request("hsync"),
+            vsync = platform.request("vsync"),
+        )
+        self.add_csr("vga")
 
     def set_yosys_nextpnr_settings(self, nextpnr_seed=0, nextpnr_placer="heap"):
         """Set Yosys/Nextpnr settings by overriding default LiteX's settings.
@@ -192,7 +236,8 @@ class BaseSoC(SoCCore):
             "nextpnr-ice40 --json {build_name}.json --pcf {build_name}.pcf --asc {build_name}.txt" +
             " --pre-pack {build_name}_pre_pack.py --{architecture} --package {package}" +
             " --seed {}".format(nextpnr_seed) +
-            " --placer {}".format(nextpnr_placer),
+            " --placer {}".format(nextpnr_placer) +
+            " --log {build_name}.log",
             # Disable final deep-sleep power down so firmware words are loaded onto softcore's address bus.
             "icepack -s {build_name}.txt {build_name}.bin"
         ]
@@ -203,7 +248,7 @@ class BaseSoC(SoCCore):
 def main():
     parser = argparse.ArgumentParser(description="LiteX SoC on iCEBreaker")
     parser.add_argument("--flash-offset", default=0x40000, help="Boot offset in SPI Flash")
-    parser.add_argument("--sys-clk-freq", type=float, default=21e6, help="Select system clock frequency")
+    parser.add_argument("--sys-clk-freq", type=float, default=20e6, help="Select system clock frequency")
     parser.add_argument("--nextpnr-seed", default=0, help="Select nextpnr pseudo random seed")
     parser.add_argument("--nextpnr-placer", default="heap", choices=["sa", "heap"], help="Select nextpnr placer algorithm")
     parser.add_argument("--debug", action="store_true", help="Enable debug features. (UART has to be used with the wishbone-tool.)")

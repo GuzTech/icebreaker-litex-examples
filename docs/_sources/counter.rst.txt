@@ -1,0 +1,35 @@
+COUNTER
+=======
+
+Counter module.
+---------------
+
+The CSR value determines the speed of the counter.
+
+
+Register Listing for COUNTER
+----------------------------
+
++----------------------------------+---------------------------------+
+| Register                         | Address                         |
++==================================+=================================+
+| :ref:`COUNTER_OUT <COUNTER_OUT>` | :ref:`0xe0003000 <COUNTER_OUT>` |
++----------------------------------+---------------------------------+
+
+COUNTER_OUT
+^^^^^^^^^^^
+
+`Address: 0xe0003000 + 0x0 = 0xe0003000`
+
+
+    .. wavedrom::
+        :caption: COUNTER_OUT
+
+        {
+            "reg": [
+                {"name": "out[3:0]", "bits": 4},
+                {"bits": 28},
+            ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
+        }
+
+
