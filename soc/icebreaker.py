@@ -72,9 +72,10 @@ vga_pmod = [
 class _CRG(Module, AutoDoc):
     """Icebreaker Clock Resource Generator
 
-    The system is clocked by the external 12MHz clock. But if a sys_clk_freq is set to a value
-    that is different from the default 12MHz we will feed it through the PLL block and try to
-    generate a clock as close as possible to the selected frequency.
+    The system is clocked by the external 12MHz clock. It is fed to the PLL to generate a
+    40 MHz clock which is the 800x600 @ 60 Hz VGA pixel clock. The SoC cannot run at this
+    clock frequency, so a 1-bit register is used to halve this frequency (20 MHz) and use
+    it as the system (SoC) clock.
     """
     def __init__(self, platform, sys_clk_freq):
         self.clock_domains.cd_sys = ClockDomain()
