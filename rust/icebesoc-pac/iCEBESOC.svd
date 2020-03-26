@@ -75,33 +75,6 @@ to the Wishbone/CSR bus are working correctly. The initial reset value of
             </addressBlock>
         </peripheral>
         <peripheral>
-            <name>UART_PHY</name>
-            <baseAddress>0xE0001000</baseAddress>
-            <groupName>UART_PHY</groupName>
-            <registers>
-                <register>
-                    <name>TUNING_WORD</name>
-                    <addressOffset>0x0000</addressOffset>
-                    <resetValue>0x1797cc3</resetValue>
-                    <size>32</size>
-                    <access>read-write</access>
-                    <fields>
-                        <field>
-                            <name>tuning_word</name>
-                            <msb>31</msb>
-                            <bitRange>[31:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-            </registers>
-            <addressBlock>
-                <offset>0</offset>
-                <size>0x4</size>
-                <usage>registers</usage>
-            </addressBlock>
-        </peripheral>
-        <peripheral>
             <name>UART</name>
             <baseAddress>0xE0001800</baseAddress>
             <groupName>UART</groupName>
@@ -196,10 +169,100 @@ to the Wishbone/CSR bus are working correctly. The initial reset value of
                         </field>
                     </fields>
                 </register>
+                <register>
+                    <name>XOVER_RXTX</name>
+                    <addressOffset>0x0018</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <access>read-write</access>
+                    <fields>
+                        <field>
+                            <name>xover_rxtx</name>
+                            <msb>7</msb>
+                            <bitRange>[7:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>XOVER_TXFULL</name>
+                    <addressOffset>0x001c</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <access>read-only</access>
+                    <fields>
+                        <field>
+                            <name>xover_txfull</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>XOVER_RXEMPTY</name>
+                    <addressOffset>0x0020</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <access>read-only</access>
+                    <fields>
+                        <field>
+                            <name>xover_rxempty</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>XOVER_EV_STATUS</name>
+                    <addressOffset>0x0024</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <access>read-write</access>
+                    <fields>
+                        <field>
+                            <name>xover_ev_status</name>
+                            <msb>1</msb>
+                            <bitRange>[1:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>XOVER_EV_PENDING</name>
+                    <addressOffset>0x0028</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <access>read-write</access>
+                    <fields>
+                        <field>
+                            <name>xover_ev_pending</name>
+                            <msb>1</msb>
+                            <bitRange>[1:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>XOVER_EV_ENABLE</name>
+                    <addressOffset>0x002c</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <access>read-write</access>
+                    <fields>
+                        <field>
+                            <name>xover_ev_enable</name>
+                            <msb>1</msb>
+                            <bitRange>[1:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
             </registers>
             <addressBlock>
                 <offset>0</offset>
-                <size>0x18</size>
+                <size>0x30</size>
                 <usage>registers</usage>
             </addressBlock>
             <interrupt>
@@ -437,8 +500,35 @@ to perform half-duplex operations, using this SPI core.]]></description>
             </addressBlock>
         </peripheral>
         <peripheral>
-            <name>VGA</name>
+            <name>COUNTER</name>
             <baseAddress>0xE0003000</baseAddress>
+            <groupName>COUNTER</groupName>
+            <registers>
+                <register>
+                    <name>OUT</name>
+                    <addressOffset>0x0000</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <access>read-write</access>
+                    <fields>
+                        <field>
+                            <name>out</name>
+                            <msb>5</msb>
+                            <bitRange>[5:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+            </registers>
+            <addressBlock>
+                <offset>0</offset>
+                <size>0x4</size>
+                <usage>registers</usage>
+            </addressBlock>
+        </peripheral>
+        <peripheral>
+            <name>VGA</name>
+            <baseAddress>0xE0003800</baseAddress>
             <groupName>VGA</groupName>
             <registers>
                 <register>

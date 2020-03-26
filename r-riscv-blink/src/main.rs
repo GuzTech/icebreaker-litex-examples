@@ -7,10 +7,12 @@ use icebesoc_pac;
 use riscv_rt::entry;
 
 mod timer;
+mod counter;
 mod vga;
 mod print;
 
 use timer::Timer;
+use counter::Counter;
 use vga::PMOD_VGA;
 
 const SYSTEM_CLOCK_FREQUENCY: u32 = 20_000_000;
@@ -23,16 +25,15 @@ fn main() -> ! {
 
     print::print_hardware::set_hardware(peripherals.UART);
     let mut timer = Timer::new(peripherals.TIMER0);
-
+    let mut counter = Counter::new(peripherals.COUNTER);
     let mut vga = PMOD_VGA::new(peripherals.VGA);
-    let mut color = 0;
+    let mut value = 0;
 
     loop {
-        unsafe {
-            vga.set(color);
-        }
+        counter.set(value);
+        vga.set(value);
 
-        color = color + 1;
+        value = value + 1;
         usleep(&mut timer, 16666);
     }
 }

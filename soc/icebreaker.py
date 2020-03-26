@@ -181,19 +181,19 @@ class BaseSoC(SoCCore):
             if hasattr(self, "cpu") and self.cpu.name == "vexriscv":
                 self.register_mem("vexriscv_debug", 0xf00f0000, self.cpu.debug_bus, 0x100)
 
-        # platform.add_extension(break_off_pmod)
+        platform.add_extension(break_off_pmod)
 
-        # self.submodules.counter = Counter(4,
-        #     Cat(
-        #     platform.request("user_ledr_n"),
-        #     platform.request("user_ledg_n"),
-        #     platform.request("user_ledr"),
-        #     platform.request("user_ledg", 0),
-        #     platform.request("user_ledg", 1),
-        #     platform.request("user_ledg", 2),
-        #     platform.request("user_ledg", 3)),
-        # )
-        # self.add_csr("counter")
+        self.submodules.counter = Counter(6,
+            Cat(
+            platform.request("user_ledr_n"),
+            platform.request("user_ledg_n"),
+            platform.request("user_ledr"),
+            platform.request("user_ledg", 0),
+            platform.request("user_ledg", 1),
+            platform.request("user_ledg", 2),
+            platform.request("user_ledg", 3)),
+        )
+        self.add_csr("counter")
 
         platform.add_extension(vga_pmod)
 
