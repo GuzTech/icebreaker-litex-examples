@@ -16,7 +16,6 @@
     <script src="_static/WaveDrom.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="SPIFLASH" href="spiflash.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -69,11 +68,11 @@ corresponding LED bit to 1 the LED will be off and if you set it to 0 the LED wi
     "reg": [
         {"name": "ledr",  "bits": 1},
         {"name": "ledg",  "bits": 1},
-        {"name": "hledr1",  "bits": 1},
+        {"name": "hledr",  "bits": 1},
+        {"name": "hledg0",  "bits": 1},
+        {"name": "hledg1",  "bits": 1},
         {"name": "hledg2",  "bits": 1},
         {"name": "hledg3",  "bits": 1},
-        {"name": "hledg4",  "bits": 1},
-        {"name": "hledg5",  "bits": 1},
         {"bits": 25}
     ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
 }
@@ -82,9 +81,9 @@ corresponding LED bit to 1 the LED will be off and if you set it to 0 the LED wi
 </div></blockquote>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 11%" />
+<col style="width: 12%" />
 <col style="width: 13%" />
-<col style="width: 76%" />
+<col style="width: 75%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Field</p></th>
@@ -102,24 +101,24 @@ corresponding LED bit to 1 the LED will be off and if you set it to 0 the LED wi
 <td><p>The Green LED on the main iCEBreaker board.</p></td>
 </tr>
 <tr class="row-even"><td><p>[2]</p></td>
-<td><p>HLEDR1</p></td>
-<td><p>The center Red LED #1 on the iCEBreaker head.</p></td>
+<td><p>HLEDR</p></td>
+<td><p>The center Red LED on the iCEBreaker head.</p></td>
 </tr>
 <tr class="row-odd"><td><p>[3]</p></td>
+<td><p>HLEDG0</p></td>
+<td><p>Green LED #0 on the iCEBreaker head.</p></td>
+</tr>
+<tr class="row-even"><td><p>[4]</p></td>
+<td><p>HLEDG1</p></td>
+<td><p>Green LED #1 on the iCEBreaker head.</p></td>
+</tr>
+<tr class="row-odd"><td><p>[5]</p></td>
 <td><p>HLEDG2</p></td>
 <td><p>Green LED #2 on the iCEBreaker head.</p></td>
 </tr>
-<tr class="row-even"><td><p>[4]</p></td>
+<tr class="row-even"><td><p>[6]</p></td>
 <td><p>HLEDG3</p></td>
 <td><p>Green LED #3 on the iCEBreaker head.</p></td>
-</tr>
-<tr class="row-odd"><td><p>[5]</p></td>
-<td><p>HLEDG4</p></td>
-<td><p>Green LED #4 on the iCEBreaker head.</p></td>
-</tr>
-<tr class="row-even"><td><p>[6]</p></td>
-<td><p>HLEDG5</p></td>
-<td><p>Green LED #5 on the iCEBreaker head.</p></td>
 </tr>
 </tbody>
 </table>
@@ -153,20 +152,18 @@ corresponding LED bit to 1 the LED will be off and if you set it to 0 the LED wi
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="interrupts.html">Interrupt Controller</a></li>
 </ul>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="ctrl.html">CTRL</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uart_phy.html">UART_PHY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="uart.html">UART</a></li>
 <li class="toctree-l1"><a class="reference internal" href="timer0.html">TIMER0</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spiflash.html">SPIFLASH</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">LEDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="counter.html">COUNTER</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="spiflash.html" title="previous chapter">SPIFLASH</a></li>
   </ul></li>
 </ul>
 </div>

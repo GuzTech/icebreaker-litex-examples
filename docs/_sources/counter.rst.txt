@@ -27,8 +27,8 @@ COUNTER_OUT
 
         {
             "reg": [
-                {"name": "out[3:0]", "bits": 4},
-                {"bits": 28},
+                {"name": "out[5:0]", "bits": 6},
+                {"bits": 26},
             ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
         }
 

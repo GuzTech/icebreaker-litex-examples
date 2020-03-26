@@ -1,0 +1,46 @@
+CSRTEST
+=======
+
+CSR test module.
+----------------
+This module has a CSR which can be read from and written to.        
+
+
+Register Listing for CSRTEST
+----------------------------
+
++----------------------------------+---------------------------------+
+| Register                         | Address                         |
++==================================+=================================+
+| :ref:`CSRTEST_OUT <CSRTEST_OUT>` | :ref:`0xe0003800 <CSRTEST_OUT>` |
++----------------------------------+---------------------------------+
+
+CSRTEST_OUT
+^^^^^^^^^^^
+
+`Address: 0xe0003800 + 0x0 = 0xe0003800`
+
+
+    .. wavedrom::
+        :caption: CSRTEST_OUT
+
+        {
+            "reg": [
+                {"name": "bit0",  "bits": 1},
+                {"name": "bit1",  "bits": 1},
+                {"name": "bit2",  "bits": 1},
+                {"bits": 29}
+            ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
+        }
+
+
++-------+------+------------------+
+| Field | Name | Description      |
++=======+======+==================+
+| [0]   | BIT0 | Bit 0 of the CSR |
++-------+------+------------------+
+| [1]   | BIT1 | Bit 1 of the CSR |
++-------+------+------------------+
+| [2]   | BIT2 | Bit 2 of the CSR |
++-------+------+------------------+
+
