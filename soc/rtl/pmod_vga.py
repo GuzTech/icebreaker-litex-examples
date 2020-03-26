@@ -36,7 +36,8 @@ class VGA(Module, AutoCSR, AutoDoc):
 			CSRField(name="blue", size=len(blue), description="The value of the blue color channel"),
 		])
 
-		# General timing: 800x600 @ 60Hz (taken from http://tinyvga.com/vga-timing/800x600@60Hz)
+		# General timing: 800x600 @ 60Hz (taken from http://tinyvga.com/vga-timing/800x600@60Hz).
+		# This mode requires a pixel clock of 40 MHz.
 		# The values below are the timings in pixel clocks.
 		H_VISIBLE_AREA = 800
 		H_FRONT_PORCH  = 40
@@ -54,14 +55,14 @@ class VGA(Module, AutoCSR, AutoDoc):
 		self.vcnt = Signal(log2_int(V_TOTAL, need_pow2=False))
       	
 		# Horizontal counter
-		self.sync.vga += If(self.hcnt == (H_TOTAL - 1),
+		self.sync.pix += If(self.hcnt == (H_TOTAL - 1),
 							self.hcnt.eq(0)
 						).Else(
 							self.hcnt.eq(self.hcnt + 1)
 						)
 
 		# Vertical counter
-		self.sync.vga += If((self.hcnt == (H_TOTAL - 1)) & (self.vcnt == (V_TOTAL - 1)),
+		self.sync.pix += If((self.hcnt == (H_TOTAL - 1)) & (self.vcnt == (V_TOTAL - 1)),
 							self.vcnt.eq(0)
 						).Elif(self.hcnt == (H_TOTAL - 1),
 							self.vcnt.eq(self.vcnt + 1)
@@ -70,14 +71,14 @@ class VGA(Module, AutoCSR, AutoDoc):
 						)
 
 		# Horizontal sync
-		self.sync.vga += If((self.hcnt >= (H_VISIBLE_AREA + H_FRONT_PORCH)) & (self.hcnt < (H_TOTAL - H_BACK_PORCH)),
+		self.sync.pix += If((self.hcnt >= (H_VISIBLE_AREA + H_FRONT_PORCH)) & (self.hcnt < (H_TOTAL - H_BACK_PORCH)),
 							hsync.eq(1)
 						).Else(
 							hsync.eq(0)
 						)
 
 		# Vertical sync
-		self.sync.vga += If((self.vcnt >= (V_VISIBLE_AREA + V_FRONT_PORCH)) & (self.vcnt < (V_TOTAL - V_BACK_PORCH)),
+		self.sync.pix += If((self.vcnt >= (V_VISIBLE_AREA + V_FRONT_PORCH)) & (self.vcnt < (V_TOTAL - V_BACK_PORCH)),
 							vsync.eq(1)
 						).Else(
 							vsync.eq(0)
@@ -91,7 +92,7 @@ class VGA(Module, AutoCSR, AutoDoc):
 		# This is necessary because some monitors use the RGB values outside
 		# of the visible area as black level calibration. So it is necessary
 		# in order for black to be actually displayed as black.
-		self.sync.vga += If(self.draw,
+		self.sync.pix += If(self.draw,
 							red.eq(csr.fields.red),
 							green.eq(csr.fields.green),
 							blue.eq(csr.fields.blue)

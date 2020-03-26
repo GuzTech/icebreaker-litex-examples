@@ -196,7 +196,7 @@ class BaseSoC(SoCCore):
 
         platform.add_extension(vga_pmod)
 
-        self.submodules.vga = VGA(
+        self.submodules.vga = vga = VGA(
             red = Cat(platform.request("red", 0),
                      platform.request("red", 1),
                      platform.request("red", 2),
@@ -212,6 +212,7 @@ class BaseSoC(SoCCore):
             hsync = platform.request("hsync"),
             vsync = platform.request("vsync"),
         )
+        vga = ClockDomainsRenamer({"pix": "vga"})(vga)
         self.add_csr("vga")
 
     def set_yosys_nextpnr_settings(self, nextpnr_seed=0, nextpnr_placer="heap"):
