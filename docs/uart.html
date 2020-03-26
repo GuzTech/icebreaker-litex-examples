@@ -17,7 +17,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="TIMER0" href="timer0.html" />
-    <link rel="prev" title="CTRL" href="ctrl.html" />
+    <link rel="prev" title="UART_PHY" href="uart_phy.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -40,8 +40,8 @@
 <h2>Register Listing for UART<a class="headerlink" href="#register-listing-for-uart" title="Permalink to this headline">¶</a></h2>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 56%" />
-<col style="width: 44%" />
+<col style="width: 53%" />
+<col style="width: 47%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Register</p></th>
@@ -66,24 +66,6 @@
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#uart-ev-enable"><span class="std std-ref">UART_EV_ENABLE</span></a></p></td>
 <td><p><a class="reference internal" href="#uart-ev-enable"><span class="std std-ref">0xe0001814</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#uart-xover-rxtx"><span class="std std-ref">UART_XOVER_RXTX</span></a></p></td>
-<td><p><a class="reference internal" href="#uart-xover-rxtx"><span class="std std-ref">0xe0001818</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#uart-xover-txfull"><span class="std std-ref">UART_XOVER_TXFULL</span></a></p></td>
-<td><p><a class="reference internal" href="#uart-xover-txfull"><span class="std std-ref">0xe000181c</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#uart-xover-rxempty"><span class="std std-ref">UART_XOVER_RXEMPTY</span></a></p></td>
-<td><p><a class="reference internal" href="#uart-xover-rxempty"><span class="std std-ref">0xe0001820</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#uart-xover-ev-status"><span class="std std-ref">UART_XOVER_EV_STATUS</span></a></p></td>
-<td><p><a class="reference internal" href="#uart-xover-ev-status"><span class="std std-ref">0xe0001824</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#uart-xover-ev-pending"><span class="std std-ref">UART_XOVER_EV_PENDING</span></a></p></td>
-<td><p><a class="reference internal" href="#uart-xover-ev-pending"><span class="std std-ref">0xe0001828</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#uart-xover-ev-enable"><span class="std std-ref">UART_XOVER_EV_ENABLE</span></a></p></td>
-<td><p><a class="reference internal" href="#uart-xover-ev-enable"><span class="std std-ref">0xe000182c</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -264,183 +246,6 @@
 </tbody>
 </table>
 </div>
-<div class="section" id="uart-xover-rxtx">
-<h3>UART_XOVER_RXTX<a class="headerlink" href="#uart-xover-rxtx" title="Permalink to this headline">¶</a></h3>
-<p><cite>Address: 0xe0001800 + 0x18 = 0xe0001818</cite></p>
-<blockquote>
-<div>
-<div style="overflow-x:auto">
-<script type="WaveDrom">
-{
-    "reg": [
-        {"name": "xover_rxtx[7:0]", "bits": 8},
-        {"bits": 24},
-    ], "config": {"hspace": 400, "bits": 32, "lanes": 1 }, "options": {"hspace": 400, "bits": 32, "lanes": 1}
-}
-</script>
-</div>
-</div></blockquote>
-</div>
-<div class="section" id="uart-xover-txfull">
-<h3>UART_XOVER_TXFULL<a class="headerlink" href="#uart-xover-txfull" title="Permalink to this headline">¶</a></h3>
-<p><cite>Address: 0xe0001800 + 0x1c = 0xe000181c</cite></p>
-<blockquote>
-<div>
-<div style="overflow-x:auto">
-<script type="WaveDrom">
-{
-    "reg": [
-        {"name": "xover_txfull", "bits": 1},
-        {"bits": 31},
-    ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
-}
-</script>
-</div>
-</div></blockquote>
-</div>
-<div class="section" id="uart-xover-rxempty">
-<h3>UART_XOVER_RXEMPTY<a class="headerlink" href="#uart-xover-rxempty" title="Permalink to this headline">¶</a></h3>
-<p><cite>Address: 0xe0001800 + 0x20 = 0xe0001820</cite></p>
-<blockquote>
-<div>
-<div style="overflow-x:auto">
-<script type="WaveDrom">
-{
-    "reg": [
-        {"name": "xover_rxempty", "bits": 1},
-        {"bits": 31},
-    ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
-}
-</script>
-</div>
-</div></blockquote>
-</div>
-<div class="section" id="uart-xover-ev-status">
-<h3>UART_XOVER_EV_STATUS<a class="headerlink" href="#uart-xover-ev-status" title="Permalink to this headline">¶</a></h3>
-<p><cite>Address: 0xe0001800 + 0x24 = 0xe0001824</cite></p>
-<blockquote>
-<div><p>This register contains the current raw level of the Event trigger.  Writes to this register have no effect.</p>
-
-<div style="overflow-x:auto">
-<script type="WaveDrom">
-{
-    "reg": [
-        {"name": "tx",  "bits": 1},
-        {"name": "rx",  "bits": 1},
-        {"bits": 30}
-    ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
-}
-</script>
-</div>
-</div></blockquote>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 18%" />
-<col style="width: 16%" />
-<col style="width: 66%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Field</p></th>
-<th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>[0]</p></td>
-<td><p>TX</p></td>
-<td><p>Level of the <cite>tx</cite> event</p></td>
-</tr>
-<tr class="row-odd"><td><p>[1]</p></td>
-<td><p>RX</p></td>
-<td><p>Level of the <cite>rx</cite> event</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="uart-xover-ev-pending">
-<h3>UART_XOVER_EV_PENDING<a class="headerlink" href="#uart-xover-ev-pending" title="Permalink to this headline">¶</a></h3>
-<p><cite>Address: 0xe0001800 + 0x28 = 0xe0001828</cite></p>
-<blockquote>
-<div><p>When an Event occurs, the corresponding bit will be set in this register.  To clear the Event, set the corresponding bit in this register.</p>
-
-<div style="overflow-x:auto">
-<script type="WaveDrom">
-{
-    "reg": [
-        {"name": "tx",  "bits": 1},
-        {"name": "rx",  "bits": 1},
-        {"bits": 30}
-    ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
-}
-</script>
-</div>
-</div></blockquote>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 8%" />
-<col style="width: 7%" />
-<col style="width: 86%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Field</p></th>
-<th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>[0]</p></td>
-<td><p>TX</p></td>
-<td><p><cite>1</cite> if a <cite>tx</cite> event occurred. This Event is triggered on a <strong>falling</strong> edge.</p></td>
-</tr>
-<tr class="row-odd"><td><p>[1]</p></td>
-<td><p>RX</p></td>
-<td><p><cite>1</cite> if a <cite>rx</cite> event occurred. This Event is triggered on a <strong>falling</strong> edge.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="uart-xover-ev-enable">
-<h3>UART_XOVER_EV_ENABLE<a class="headerlink" href="#uart-xover-ev-enable" title="Permalink to this headline">¶</a></h3>
-<p><cite>Address: 0xe0001800 + 0x2c = 0xe000182c</cite></p>
-<blockquote>
-<div><p>This register enables the corresponding Events.  Write a <cite>0</cite> to this register to disable individual events.</p>
-
-<div style="overflow-x:auto">
-<script type="WaveDrom">
-{
-    "reg": [
-        {"name": "tx",  "bits": 1},
-        {"name": "rx",  "bits": 1},
-        {"bits": 30}
-    ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
-}
-</script>
-</div>
-</div></blockquote>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 14%" />
-<col style="width: 12%" />
-<col style="width: 75%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Field</p></th>
-<th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>[0]</p></td>
-<td><p>TX</p></td>
-<td><p>Write a <cite>1</cite> to enable the <cite>tx</cite> Event</p></td>
-</tr>
-<tr class="row-odd"><td><p>[1]</p></td>
-<td><p>RX</p></td>
-<td><p>Write a <cite>1</cite> to enable the <cite>rx</cite> Event</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 </div>
 
@@ -472,6 +277,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ctrl.html">CTRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uart_phy.html">UART_PHY</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">UART</a></li>
 <li class="toctree-l1"><a class="reference internal" href="timer0.html">TIMER0</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spiflash.html">SPIFLASH</a></li>
@@ -483,7 +289,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="ctrl.html" title="previous chapter">CTRL</a></li>
+      <li>Previous: <a href="uart_phy.html" title="previous chapter">UART_PHY</a></li>
       <li>Next: <a href="timer0.html" title="next chapter">TIMER0</a></li>
   </ul></li>
 </ul>

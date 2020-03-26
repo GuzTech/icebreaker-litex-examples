@@ -19,6 +19,7 @@ Register Groups
     :maxdepth: 1
 
     ctrl
+    uart_phy
     uart
     timer0
     spiflash

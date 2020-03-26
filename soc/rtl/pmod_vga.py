@@ -66,8 +66,6 @@ class VGA(Module, AutoCSR, AutoDoc):
 							self.vcnt.eq(0)
 						).Elif(self.hcnt == (H_TOTAL - 1),
 							self.vcnt.eq(self.vcnt + 1)
-						).Else(
-							self.hcnt.eq(self.hcnt + 1)
 						)
 
 		# Horizontal sync

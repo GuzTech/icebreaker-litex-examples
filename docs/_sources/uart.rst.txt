@@ -4,33 +4,21 @@ UART
 Register Listing for UART
 -------------------------
 
-+------------------------------------------------------+-------------------------------------------+
-| Register                                             | Address                                   |
-+======================================================+===========================================+
-| :ref:`UART_RXTX <UART_RXTX>`                         | :ref:`0xe0001800 <UART_RXTX>`             |
-+------------------------------------------------------+-------------------------------------------+
-| :ref:`UART_TXFULL <UART_TXFULL>`                     | :ref:`0xe0001804 <UART_TXFULL>`           |
-+------------------------------------------------------+-------------------------------------------+
-| :ref:`UART_RXEMPTY <UART_RXEMPTY>`                   | :ref:`0xe0001808 <UART_RXEMPTY>`          |
-+------------------------------------------------------+-------------------------------------------+
-| :ref:`UART_EV_STATUS <UART_EV_STATUS>`               | :ref:`0xe000180c <UART_EV_STATUS>`        |
-+------------------------------------------------------+-------------------------------------------+
-| :ref:`UART_EV_PENDING <UART_EV_PENDING>`             | :ref:`0xe0001810 <UART_EV_PENDING>`       |
-+------------------------------------------------------+-------------------------------------------+
-| :ref:`UART_EV_ENABLE <UART_EV_ENABLE>`               | :ref:`0xe0001814 <UART_EV_ENABLE>`        |
-+------------------------------------------------------+-------------------------------------------+
-| :ref:`UART_XOVER_RXTX <UART_XOVER_RXTX>`             | :ref:`0xe0001818 <UART_XOVER_RXTX>`       |
-+------------------------------------------------------+-------------------------------------------+
-| :ref:`UART_XOVER_TXFULL <UART_XOVER_TXFULL>`         | :ref:`0xe000181c <UART_XOVER_TXFULL>`     |
-+------------------------------------------------------+-------------------------------------------+
-| :ref:`UART_XOVER_RXEMPTY <UART_XOVER_RXEMPTY>`       | :ref:`0xe0001820 <UART_XOVER_RXEMPTY>`    |
-+------------------------------------------------------+-------------------------------------------+
-| :ref:`UART_XOVER_EV_STATUS <UART_XOVER_EV_STATUS>`   | :ref:`0xe0001824 <UART_XOVER_EV_STATUS>`  |
-+------------------------------------------------------+-------------------------------------------+
-| :ref:`UART_XOVER_EV_PENDING <UART_XOVER_EV_PENDING>` | :ref:`0xe0001828 <UART_XOVER_EV_PENDING>` |
-+------------------------------------------------------+-------------------------------------------+
-| :ref:`UART_XOVER_EV_ENABLE <UART_XOVER_EV_ENABLE>`   | :ref:`0xe000182c <UART_XOVER_EV_ENABLE>`  |
-+------------------------------------------------------+-------------------------------------------+
++------------------------------------------+-------------------------------------+
+| Register                                 | Address                             |
++==========================================+=====================================+
+| :ref:`UART_RXTX <UART_RXTX>`             | :ref:`0xe0001800 <UART_RXTX>`       |
++------------------------------------------+-------------------------------------+
+| :ref:`UART_TXFULL <UART_TXFULL>`         | :ref:`0xe0001804 <UART_TXFULL>`     |
++------------------------------------------+-------------------------------------+
+| :ref:`UART_RXEMPTY <UART_RXEMPTY>`       | :ref:`0xe0001808 <UART_RXEMPTY>`    |
++------------------------------------------+-------------------------------------+
+| :ref:`UART_EV_STATUS <UART_EV_STATUS>`   | :ref:`0xe000180c <UART_EV_STATUS>`  |
++------------------------------------------+-------------------------------------+
+| :ref:`UART_EV_PENDING <UART_EV_PENDING>` | :ref:`0xe0001810 <UART_EV_PENDING>` |
++------------------------------------------+-------------------------------------+
+| :ref:`UART_EV_ENABLE <UART_EV_ENABLE>`   | :ref:`0xe0001814 <UART_EV_ENABLE>`  |
++------------------------------------------+-------------------------------------+
 
 UART_RXTX
 ^^^^^^^^^
@@ -146,138 +134,6 @@ UART_EV_ENABLE
 
     .. wavedrom::
         :caption: UART_EV_ENABLE
-
-        {
-            "reg": [
-                {"name": "tx",  "bits": 1},
-                {"name": "rx",  "bits": 1},
-                {"bits": 30}
-            ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
-        }
-
-
-+-------+------+--------------------------------------+
-| Field | Name | Description                          |
-+=======+======+======================================+
-| [0]   | TX   | Write a `1` to enable the `tx` Event |
-+-------+------+--------------------------------------+
-| [1]   | RX   | Write a `1` to enable the `rx` Event |
-+-------+------+--------------------------------------+
-
-UART_XOVER_RXTX
-^^^^^^^^^^^^^^^
-
-`Address: 0xe0001800 + 0x18 = 0xe0001818`
-
-
-    .. wavedrom::
-        :caption: UART_XOVER_RXTX
-
-        {
-            "reg": [
-                {"name": "xover_rxtx[7:0]", "bits": 8},
-                {"bits": 24},
-            ], "config": {"hspace": 400, "bits": 32, "lanes": 1 }, "options": {"hspace": 400, "bits": 32, "lanes": 1}
-        }
-
-
-UART_XOVER_TXFULL
-^^^^^^^^^^^^^^^^^
-
-`Address: 0xe0001800 + 0x1c = 0xe000181c`
-
-
-    .. wavedrom::
-        :caption: UART_XOVER_TXFULL
-
-        {
-            "reg": [
-                {"name": "xover_txfull", "bits": 1},
-                {"bits": 31},
-            ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
-        }
-
-
-UART_XOVER_RXEMPTY
-^^^^^^^^^^^^^^^^^^
-
-`Address: 0xe0001800 + 0x20 = 0xe0001820`
-
-
-    .. wavedrom::
-        :caption: UART_XOVER_RXEMPTY
-
-        {
-            "reg": [
-                {"name": "xover_rxempty", "bits": 1},
-                {"bits": 31},
-            ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
-        }
-
-
-UART_XOVER_EV_STATUS
-^^^^^^^^^^^^^^^^^^^^
-
-`Address: 0xe0001800 + 0x24 = 0xe0001824`
-
-    This register contains the current raw level of the Event trigger.  Writes to this register have no effect.
-
-    .. wavedrom::
-        :caption: UART_XOVER_EV_STATUS
-
-        {
-            "reg": [
-                {"name": "tx",  "bits": 1},
-                {"name": "rx",  "bits": 1},
-                {"bits": 30}
-            ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
-        }
-
-
-+-------+------+-------------------------+
-| Field | Name | Description             |
-+=======+======+=========================+
-| [0]   | TX   | Level of the `tx` event |
-+-------+------+-------------------------+
-| [1]   | RX   | Level of the `rx` event |
-+-------+------+-------------------------+
-
-UART_XOVER_EV_PENDING
-^^^^^^^^^^^^^^^^^^^^^
-
-`Address: 0xe0001800 + 0x28 = 0xe0001828`
-
-    When an Event occurs, the corresponding bit will be set in this register.  To clear the Event, set the corresponding bit in this register.
-
-    .. wavedrom::
-        :caption: UART_XOVER_EV_PENDING
-
-        {
-            "reg": [
-                {"name": "tx",  "bits": 1},
-                {"name": "rx",  "bits": 1},
-                {"bits": 30}
-            ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
-        }
-
-
-+-------+------+------------------------------------------------------------------------------+
-| Field | Name | Description                                                                  |
-+=======+======+==============================================================================+
-| [0]   | TX   | `1` if a `tx` event occurred. This Event is triggered on a **falling** edge. |
-+-------+------+------------------------------------------------------------------------------+
-| [1]   | RX   | `1` if a `rx` event occurred. This Event is triggered on a **falling** edge. |
-+-------+------+------------------------------------------------------------------------------+
-
-UART_XOVER_EV_ENABLE
-^^^^^^^^^^^^^^^^^^^^
-
-`Address: 0xe0001800 + 0x2c = 0xe000182c`
-
-    This register enables the corresponding Events.  Write a `0` to this register to disable individual events.
-
-    .. wavedrom::
-        :caption: UART_XOVER_EV_ENABLE
 
         {
             "reg": [
